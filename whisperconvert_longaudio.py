@@ -13,13 +13,13 @@ import logging
 logging.getLogger('numba').setLevel(logging.WARNING)
 import librosa  # Optional. Use any library you like to read audio files.
 import soundfile  # Optional. Use any library you like to write audio files.
-from preprocess_ppg import pred_ppg_c,load_model
+from preprocess_ppg import pred_ppg,load_model
 
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--hpfile", type=str, default="ConsistencyVC-voive-conversion/logs/config.json", help="path to json config file")
-    parser.add_argument("--ptfile", type=str, default="ConsistencyVC-voive-conversion/logs/G_cvc-whispers-three-emo-loss.pth", help="path to pth file")
+    parser.add_argument("--hpfile", type=str, default="logs/config.json", help="path to json config file")
+    parser.add_argument("--ptfile", type=str, default="logs/G_cvc-whispers-three-emo-loss.pth", help="path to pth file")
     parser.add_argument("--outdir", type=str, default="output/long", help="path to output dir")
     parser.add_argument("--use_timestamp", default=False, action="store_true")
     args = parser.parse_args()
@@ -38,11 +38,10 @@ if __name__ == "__main__":
 
 
     
-    src_wavs=[r"longaudio1.wav",
-             r"longaudio2.wav"]
+    src_wavs=[r"/content/source/common_voice_ru_20190272_2.wav"]
     
 
-    tgt_wavs=["tgt_slice/20230712-092103-296_1.wav"]
+    tgt_wavs=["/content/target/common_voice_ru_28718282_2.wav"]
     print("Processing text...")
     titles, srcs, tgts = [], [], []
     for src_wav in src_wavs:
