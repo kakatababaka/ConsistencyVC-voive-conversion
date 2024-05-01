@@ -106,8 +106,10 @@ if __name__ == "__main__":
                 tmp=audio[i*20*sr:(i*20*sr+25*sr)]
                 sf.write(os.path.join(args.outdir, f"{srcname}_{i}.wav"), tmp, hps.data.sampling_rate)
         
-                
-                c=pred_ppg_c(whisper,os.path.join(args.outdir, f"{srcname}_{i}.wav"))#torch.from_numpy(np.load(c_filename))
+                c_filename = f"{srcname}_{i}.pt.npy"
+                pred_ppg(whisper,os.path.join(args.outdir, f"{srcname}_{i}.wav"), c_filename)#torch.from_numpy(np.load(c_filename))
+                c = np.load(c_filename)
+                #c=pred_ppg_c(whisper,os.path.join(args.outdir, f"{srcname}_{i}.wav"))#torch.from_numpy(np.load(c_filename))
                 c=torch.from_numpy(c)
                 c=c.transpose(1,0)
                 c=c.unsqueeze(0)
